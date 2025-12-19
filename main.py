@@ -18,6 +18,11 @@ soup = BeautifulSoup(resp.text, "html.parser")
 
 # On cherche le premier tableau sur la page
 table = soup.find("table")
+# Supprimer les lignes contenant <i class="small circle outline fitted icon"></i>
+# On va garder que les joueurs encore la en gros
+for row in table.find_all("tr"):
+    if row.find("i", class_="small circle outline fitted icon"):
+        row.decompose()
 if not table:
     print("Tableau non trouvé dans la page.")
     exit()
